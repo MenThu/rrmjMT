@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HomePageRecmendCellView">
+            <rect key="frame" x="0.0" y="0.0" width="484" height="431"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fgn-ld-q5p" userLabel="视屏图片">
+                    <rect key="frame" x="0.0" y="0.0" width="484" height="242"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fgn-ld-q5p" secondAttribute="height" multiplier="2" id="6iG-Xg-jW8"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqI-FB-PF9" userLabel="视屏描述">
+                    <rect key="frame" x="5" y="247" width="474" height="158"/>
+                    <color key="backgroundColor" red="0.0" green="0.60784313729999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Osl-9U-WAu">
+                    <rect key="frame" x="5" y="410" width="474" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="fgn-ld-q5p" secondAttribute="trailing" id="5Hw-32-38V"/>
+                <constraint firstAttribute="trailing" secondItem="Osl-9U-WAu" secondAttribute="trailing" constant="5" id="6oQ-27-yLe"/>
+                <constraint firstItem="KqI-FB-PF9" firstAttribute="top" secondItem="fgn-ld-q5p" secondAttribute="bottom" constant="5" id="8ah-DD-RdM"/>
+                <constraint firstAttribute="bottom" secondItem="Osl-9U-WAu" secondAttribute="bottom" constant="5" id="CAb-Oa-k2W"/>
+                <constraint firstItem="fgn-ld-q5p" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OdQ-F3-IxA"/>
+                <constraint firstAttribute="trailing" secondItem="KqI-FB-PF9" secondAttribute="trailing" constant="5" id="ZM5-E1-HQm"/>
+                <constraint firstItem="Osl-9U-WAu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="crv-A6-Jgv"/>
+                <constraint firstItem="KqI-FB-PF9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="gXc-bk-LjU"/>
+                <constraint firstItem="fgn-ld-q5p" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lMt-S1-AqL"/>
+                <constraint firstItem="Osl-9U-WAu" firstAttribute="top" secondItem="KqI-FB-PF9" secondAttribute="bottom" constant="5" id="oeO-kD-wtW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="videoImage" destination="fgn-ld-q5p" id="EXW-z4-jzf"/>
+                <outlet property="videoLabel" destination="KqI-FB-PF9" id="ORi-Ih-dpG"/>
+                <outlet property="videoPerson" destination="Osl-9U-WAu" id="gHI-mG-XTm"/>
+            </connections>
+            <point key="canvasLocation" x="-35" y="-102"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,15 @@
+//
+//  rrmj.pch
+//  rrmj
+//
+//  Created by MenThu on 2016/12/8.
+//  Copyright © 2016年 MenThu. All rights reserved.
+//
+
+#ifndef rrmj_pch
+#define rrmj_pch
+
+#import "WorkFoundation.h"
+#define LineColor [UIColor colorWithHexString:@"#38404e"]
+
+#endif /* rrmj_pch */
