@@ -145,7 +145,6 @@
     CGFloat currentUpdateHeight = [cellModel1.currentUpdate heightForFont:[UIFont systemFontOfSize:13] width:model.cellWidth];
     cellModel1.imageMarginBottom = episodeNameHeight + currentUpdateHeight + 15;
     model.cellHeight = (model.cellWidth / model.cellImageProportion) + cellModel1.imageMarginBottom;
-//    NSLog(@"%f %f", model.cellWidth, model.cellHeight);
     model.homePageViewCellArray = @[cellModel1, cellModel1, cellModel1, cellModel1, cellModel1, cellModel1];
     _recentlyUpdateView.viewModel = model;
 }

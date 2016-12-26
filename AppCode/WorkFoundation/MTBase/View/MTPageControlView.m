@@ -17,7 +17,6 @@
 
 @implementation MTPageControlView
 
-
 - (void)customView{
     //添加UIPageControl
     _pageView = [[UIPageControl alloc] init];
@@ -56,7 +55,8 @@
 
 - (void)nextPage{
     _innerCarouseIndex += 1;
-    if (_innerCarouseIndex > self.collectionViewSource.count-1) {
+//    NSLog(@"nextPage : [%ld]", (long)_innerCarouseIndex);
+    if (_innerCarouseIndex > _innerCarouseArray.count-1) {
         _innerCarouseIndex = 0;
     }
     if (self.isScrollDirectionHorizon) {
@@ -79,13 +79,16 @@
 }
 
 - (void)scrollView:(UICollectionView *)collectionView{
-    NSInteger currentIndex = (NSInteger)(collectionView.contentOffset.x / collectionView.width + 0.5);
+    CGFloat offsetXorY = (self.isScrollDirectionHorizon ? collectionView.contentOffset.x : collectionView.contentOffset.y);
+    CGFloat pageLength = (self.isScrollDirectionHorizon ? collectionView.width : collectionView.height);
+    NSInteger currentIndex = (NSInteger)(offsetXorY / pageLength + 0.5);
     self.pageView.currentPage = currentIndex % self.pageView.numberOfPages;
     _innerCarouseIndex = currentIndex;
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
+//    NSLog(@"layoutSubViews : [%ld]", (long)_innerCarouseIndex);
     if (self.isScrollDirectionHorizon) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_innerCarouseIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     }else{

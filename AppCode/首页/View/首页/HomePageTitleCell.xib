@@ -47,7 +47,7 @@
                 <outlet property="defaultLabel" destination="6bT-tw-0Zv" id="IF8-eH-Phf"/>
                 <outlet property="selectLabel" destination="k8L-JV-7F7" id="E6i-t6-2R0"/>
             </connections>
-            <point key="canvasLocation" x="-477" y="-400"/>
+            <point key="canvasLocation" x="-533" y="-506"/>
         </collectionViewCell>
     </objects>
 </document>

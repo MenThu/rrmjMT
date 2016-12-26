@@ -10,6 +10,7 @@
 
 @interface HomePageTitle : MTBaseCollectionView
 
+- (void)setLineFrame:(CGFloat)originX;
 - (void)updateUnderLineFrame:(CGPoint)cotentOffset;
 
 @end

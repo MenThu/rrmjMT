@@ -103,7 +103,7 @@
         make.height.mas_equalTo(carouseViewHeight);
     }];
     _viewHeight = carouseViewHeight + _labelHeight + 3 * _itemSpace;
-    NSLog(@"%f %f", carouseViewHeight,_viewHeight);
+//    NSLog(@"%f %f", carouseViewHeight,_viewHeight);
 }
 
 - (CGFloat)getViewHeight{

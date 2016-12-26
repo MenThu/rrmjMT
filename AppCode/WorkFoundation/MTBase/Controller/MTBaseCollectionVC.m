@@ -41,6 +41,7 @@ static NSString *collectionCellReuseId = @"cellId";
     self.horizonSpace = 0.f;
     self.verticalSpace = 0.f;
     self.isScrollDirectionHorizon = YES;
+    self.outsideItemWidth = 0.f;
 }
 
 - (void)calculateItemWidth{
@@ -60,7 +61,7 @@ static NSString *collectionCellReuseId = @"cellId";
     layout.minimumInteritemSpacing = self.horizonSpace;
     //滚动方向
     layout.scrollDirection = (self.isScrollDirectionHorizon ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical);
-    layout.itemSize = CGSizeMake(_itemWidth, self.itemHeight);
+    layout.itemSize = CGSizeMake((self.outsideItemWidth > 0 ? self.outsideItemWidth : _itemWidth), self.itemHeight);
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     collectionView.backgroundColor = [UIColor clearColor];
@@ -92,6 +93,7 @@ static NSString *collectionCellReuseId = @"cellId";
         make.right.equalTo(self.view).offset(right);
     }];
     self.collectionView = collectionView;
+    self.contentView = collectionView;
 }
 
 
@@ -121,6 +123,7 @@ static NSString *collectionCellReuseId = @"cellId";
     return cell;
 }
 
+#pragma mark - UIScrollView的滚动代理
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self scrollViewMove:scrollView.contentOffset view:self.collectionView];
 }

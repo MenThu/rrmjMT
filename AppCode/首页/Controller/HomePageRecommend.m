@@ -44,6 +44,158 @@
 
 @implementation HomePageRecommend
 
+#pragma mark - 初始化
+- (void)initVaribles{
+    self.cellClassName = @"HomePageRecommendCell";
+    self.refreshBlock = nil;
+    _offsetY = 0.f;
+}
+
+- (void)configView{
+    [super configView];
+    MJWeakSelf
+    self.mtBaseTableView.backgroundColor = [UIColor colorWithHexString:@"#2e313c"];
+    
+    _totalTableHeadView = [[UIView alloc] init];
+    _tableHeadBannerView.backgroundColor = [UIColor clearColor];
+    _totalTableHeadHeight = 0.f;
+    
+    //头部轮播视图
+    _tableHeadBannerView = [[HomePagePageControllerView alloc] initWithFrame:CGRectMake(0, 0, YYScreenSize().width, 1000)];
+    _tableHeadBannerView.collectionView.pagingEnabled = NO;
+    [_totalTableHeadView addSubview:_tableHeadBannerView];
+    [_tableHeadBannerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_totalTableHeadView).offset(5);
+        make.left.right.equalTo(_totalTableHeadView);
+        make.height.mas_equalTo(1000);
+    }];
+    
+    //定时器向上滚动视图
+    _cycleUpView = [[MTPageControlView alloc] initWithFrame:CGRectMake(0, 0, YYScreenSize().width, 1000)];
+    _cycleUpView.pageView.hidden = YES;
+    _cycleUpView.collectionView.userInteractionEnabled = NO;
+    _cycleUpView.isScrollDirectionHorizon = NO;
+    _cycleUpView.cellClassName = @"HomePageCycleCell";
+    _cycleUpView.numofLine = 1;
+    _cycleUpView.numInaLine = 1;
+    _cycleUpView.itemHeight = 50.f;
+    _cycleUpView.collectionView.pagingEnabled = YES;
+    _cycleUpView.marginArray = @[@(0),@(10),@(0),@(10)];
+    _cycleUpView.collectionView.backgroundColor = [UIColor colorWithHexString:@"#37404e"];
+    [_cycleUpView startLayout];
+    [_totalTableHeadView addSubview:_cycleUpView];
+    [_cycleUpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_tableHeadBannerView.mas_bottom).offset(5);
+        make.left.right.equalTo(_totalTableHeadView);
+        make.height.mas_equalTo(1000);
+    }];
+    
+    //全区热播
+    _allCommunityHotEpisode = [HomePageCommonView loadView];
+    [_totalTableHeadView addSubview:_allCommunityHotEpisode];
+    [_allCommunityHotEpisode mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_cycleUpView.mas_bottom).offset(5);
+        make.left.right.equalTo(_totalTableHeadView);
+        make.height.mas_equalTo(1000);
+    }];
+    
+    _allCommunityHotEpisode.selectAct = ^(NSIndexPath *indexPath){
+        if (weakSelf.push2Video) {
+            weakSelf.push2Video();
+        }
+    };
+    
+    //全区排行
+    _allCommunityRankView = [[NSBundle mainBundle] loadNibNamed:@"AllCommunityView" owner:self options:nil].lastObject;
+    [_totalTableHeadView addSubview:_allCommunityRankView];
+    [_allCommunityRankView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_allCommunityHotEpisode.mas_bottom).offset(5);
+        make.left.right.equalTo(_totalTableHeadView);
+        make.height.mas_equalTo(1000);
+    }];
+    
+    //合辑推荐
+    _recommendedCollectionView = [HomePageCommonView loadView];
+    [_totalTableHeadView addSubview:_recommendedCollectionView];
+    [_recommendedCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_allCommunityRankView.mas_bottom).offset(5);
+        make.left.right.equalTo(_totalTableHeadView);
+        make.height.mas_equalTo(1000);
+    }];
+    
+    //最新投稿
+    _recentContributeView = [HomePageCommonView loadView];
+    [_totalTableHeadView addSubview:_recentContributeView];
+    [_recentContributeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_recommendedCollectionView.mas_bottom).offset(5);
+        make.left.right.equalTo(_totalTableHeadView);
+        make.height.mas_equalTo(1000);
+    }];
+    
+    //全区排行
+    
+    //添加数据源
+    NSMutableArray *tempArray = [NSMutableArray array];
+    CGFloat topWidth = YYScreenSize().width-20;
+    CGFloat subWidth = (YYScreenSize().width-30)/2;
+    
+    UIFont *bigFont = [UIFont systemFontOfSize:15];
+    UIFont *smallFont = [UIFont systemFontOfSize:13];
+    
+    for (NSInteger index = 0; index < 1; index ++) {
+        NSMutableArray *subArray = [NSMutableArray array];
+        
+        HomePageRecmendCellViewModel *topModel = [HomePageRecmendCellViewModel new];
+        topModel.imageName = @"HomePage1.jpg";
+        NSInteger temp = arc4random_uniform(5)+1;
+        NSMutableString *tempString = [NSMutableString string];
+        for (NSInteger stringIndex = 0; stringIndex < temp; stringIndex ++) {
+            [tempString appendString:@"这是一个测试"];
+        }
+        topModel.des = tempString;
+        topModel.recmendPerson = @"UP住推荐";
+        [subArray addObject:topModel];
+        
+        CGFloat topHeight = topWidth/2 + 15 + [topModel.des heightForFont:bigFont width:topWidth] + [topModel.recmendPerson heightForFont:smallFont width:topWidth];
+        
+        
+        CGFloat maxSubHeight = 0.f;
+        for (NSInteger subIndex = 0; subIndex < 4; subIndex ++) {
+            HomePageRecmendCellViewModel *subModel = [HomePageRecmendCellViewModel new];
+            subModel.imageName = [NSString stringWithFormat:@"HomePage%ld.jpg",(long)subIndex%3+1];
+            NSInteger temp = arc4random_uniform(5)+1;
+            NSMutableString *tempString = [NSMutableString string];
+            for (NSInteger stringIndex = 0; stringIndex < temp; stringIndex ++) {
+                [tempString appendString:@"这是一个测试"];
+            }
+            subModel.des = tempString;
+            subModel.recmendPerson = @"UP住推荐";
+            [subArray addObject:subModel];
+            
+            CGFloat tempHeight = subWidth/2 + 15 + [subModel.des heightForFont:bigFont width:subWidth] + [subModel.recmendPerson heightForFont:smallFont width:subWidth];
+            if (tempHeight > maxSubHeight) {
+                maxSubHeight = tempHeight;
+            }
+        }
+        
+        HomePageRecommendCellModel *model = [HomePageRecommendCellModel new];
+        model.contentArray = subArray;
+        model.topHeight = topHeight;
+        model.contentMaxHeight = maxSubHeight;
+        model.cellHeight = topHeight + maxSubHeight*2 + 60;
+        [tempArray addObject:model];
+    }
+    self.tableSource = tempArray;
+    
+    //请求网络数据
+    [self getData];
+}
+
+- (void)startHttpRequest{
+    
+}
+
+
 #pragma mark - 利用数据更新视图
 - (void)getData{
     [self updateCarouseContent];
@@ -210,7 +362,7 @@
     }
     collecitonModel.cellHeight = collecitonModel.cellWidth / collecitonModel.cellImageProportion + maxLabelHeight + 10.5;
     _recommendedCollectionView.viewModel = collecitonModel;
-
+    
 }
 
 - (void)updateRecentContent{
@@ -255,157 +407,6 @@
     }
     recentModel.cellHeight = recentModel.cellWidth / recentModel.cellImageProportion + maxLabelHeight + 10;
     _recentContributeView.viewModel = recentModel;
-}
-
-#pragma mark - 初始化
-- (void)initVaribles{
-    self.cellClassName = @"HomePageRecommendCell";
-    self.refreshBlock = nil;
-    _offsetY = 0.f;
-}
-
-- (void)configView{
-    [super configView];
-    MJWeakSelf
-    self.mtBaseTableView.backgroundColor = [UIColor colorWithHexString:@"#2e313c"];
-    
-    _totalTableHeadView = [[UIView alloc] init];
-    _tableHeadBannerView.backgroundColor = [UIColor clearColor];
-    _totalTableHeadHeight = 0.f;
-    
-    //头部轮播视图
-    _tableHeadBannerView = [[HomePagePageControllerView alloc] initWithFrame:CGRectMake(0, 0, YYScreenSize().width, 1000)];
-    _tableHeadBannerView.collectionView.pagingEnabled = NO;
-    [_totalTableHeadView addSubview:_tableHeadBannerView];
-    [_tableHeadBannerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_totalTableHeadView).offset(5);
-        make.left.right.equalTo(_totalTableHeadView);
-        make.height.mas_equalTo(1000);
-    }];
-    
-    //定时器向上滚动视图
-    _cycleUpView = [[MTPageControlView alloc] initWithFrame:CGRectMake(0, 0, YYScreenSize().width, 1000)];
-    _cycleUpView.pageView.hidden = YES;
-    _cycleUpView.collectionView.userInteractionEnabled = NO;
-    _cycleUpView.isScrollDirectionHorizon = NO;
-    _cycleUpView.cellClassName = @"HomePageCycleCell";
-    _cycleUpView.numofLine = 1;
-    _cycleUpView.numInaLine = 1;
-    _cycleUpView.itemHeight = 50.f;
-    _cycleUpView.collectionView.pagingEnabled = YES;
-    _cycleUpView.marginArray = @[@(0),@(10),@(0),@(10)];
-    _cycleUpView.collectionView.backgroundColor = [UIColor colorWithHexString:@"#37404e"];
-    [_cycleUpView startLayout];
-    [_totalTableHeadView addSubview:_cycleUpView];
-    [_cycleUpView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_tableHeadBannerView.mas_bottom).offset(5);
-        make.left.right.equalTo(_totalTableHeadView);
-        make.height.mas_equalTo(1000);
-    }];
-    
-    //全区热播
-    _allCommunityHotEpisode = [HomePageCommonView loadView];
-    [_totalTableHeadView addSubview:_allCommunityHotEpisode];
-    [_allCommunityHotEpisode mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_cycleUpView.mas_bottom).offset(5);
-        make.left.right.equalTo(_totalTableHeadView);
-        make.height.mas_equalTo(1000);
-    }];
-    
-    _allCommunityHotEpisode.selectAct = ^(NSIndexPath *indexPath){
-        if (weakSelf.push2Video) {
-            weakSelf.push2Video();
-        }
-    };
-    
-    //全区排行
-    _allCommunityRankView = [[NSBundle mainBundle] loadNibNamed:@"AllCommunityView" owner:self options:nil].lastObject;
-    [_totalTableHeadView addSubview:_allCommunityRankView];
-    [_allCommunityRankView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_allCommunityHotEpisode.mas_bottom).offset(5);
-        make.left.right.equalTo(_totalTableHeadView);
-        make.height.mas_equalTo(1000);
-    }];
-    
-    //合辑推荐
-    _recommendedCollectionView = [HomePageCommonView loadView];
-    [_totalTableHeadView addSubview:_recommendedCollectionView];
-    [_recommendedCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_allCommunityRankView.mas_bottom).offset(5);
-        make.left.right.equalTo(_totalTableHeadView);
-        make.height.mas_equalTo(1000);
-    }];
-    
-    //最新投稿
-    _recentContributeView = [HomePageCommonView loadView];
-    [_totalTableHeadView addSubview:_recentContributeView];
-    [_recentContributeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_recommendedCollectionView.mas_bottom).offset(5);
-        make.left.right.equalTo(_totalTableHeadView);
-        make.height.mas_equalTo(1000);
-    }];
-    
-    //全区排行
-    
-    //添加数据源
-    NSMutableArray *tempArray = [NSMutableArray array];
-    CGFloat topWidth = YYScreenSize().width-20;
-    CGFloat subWidth = (YYScreenSize().width-30)/2;
-    
-    UIFont *bigFont = [UIFont systemFontOfSize:15];
-    UIFont *smallFont = [UIFont systemFontOfSize:13];
-    
-    for (NSInteger index = 0; index < 1; index ++) {
-        NSMutableArray *subArray = [NSMutableArray array];
-        
-        HomePageRecmendCellViewModel *topModel = [HomePageRecmendCellViewModel new];
-        topModel.imageName = @"HomePage1.jpg";
-        NSInteger temp = arc4random_uniform(5)+1;
-        NSMutableString *tempString = [NSMutableString string];
-        for (NSInteger stringIndex = 0; stringIndex < temp; stringIndex ++) {
-            [tempString appendString:@"这是一个测试"];
-        }
-        topModel.des = tempString;
-        topModel.recmendPerson = @"UP住推荐";
-        [subArray addObject:topModel];
-        
-        CGFloat topHeight = topWidth/2 + 15 + [topModel.des heightForFont:bigFont width:topWidth] + [topModel.recmendPerson heightForFont:smallFont width:topWidth];
-        
-        
-        CGFloat maxSubHeight = 0.f;
-        for (NSInteger subIndex = 0; subIndex < 4; subIndex ++) {
-            HomePageRecmendCellViewModel *subModel = [HomePageRecmendCellViewModel new];
-            subModel.imageName = [NSString stringWithFormat:@"HomePage%ld.jpg",(long)subIndex%3+1];
-            NSInteger temp = arc4random_uniform(5)+1;
-            NSMutableString *tempString = [NSMutableString string];
-            for (NSInteger stringIndex = 0; stringIndex < temp; stringIndex ++) {
-                [tempString appendString:@"这是一个测试"];
-            }
-            subModel.des = tempString;
-            subModel.recmendPerson = @"UP住推荐";
-            [subArray addObject:subModel];
-            
-            CGFloat tempHeight = subWidth/2 + 15 + [subModel.des heightForFont:bigFont width:subWidth] + [subModel.recmendPerson heightForFont:smallFont width:subWidth];
-            if (tempHeight > maxSubHeight) {
-                maxSubHeight = tempHeight;
-            }
-        }
-        
-        HomePageRecommendCellModel *model = [HomePageRecommendCellModel new];
-        model.contentArray = subArray;
-        model.topHeight = topHeight;
-        model.contentMaxHeight = maxSubHeight;
-        model.cellHeight = topHeight + maxSubHeight*2 + 60;
-        [tempArray addObject:model];
-    }
-    self.tableSource = tempArray;
-    
-    //请求网络数据
-    [self getData];
-}
-
-- (void)startHttpRequest{
-    
 }
 
 

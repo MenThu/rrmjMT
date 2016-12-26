@@ -18,7 +18,7 @@
 /**
     外界传入的，轮播的真实个数数据源
  **/
-@property (nonatomic, weak) NSArray *carouselSource;
+@property (nonatomic, strong) NSArray *carouselSource;
 
 /**
     轮播图的当前位置

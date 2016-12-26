@@ -13,11 +13,11 @@
 #import "HomePageTitleCell.h"
 #import "HomePageTitleCellModel.h"
 #import "HomePageRecommend.h"
+#import "HomePageChannel.h"
 
 @interface HomePageVC ()
-
 {
-    NSArray *_homePageTitle;
+    NSArray <HomePageTitleCellModel *> *_homePageTitle;
     NSArray *_homePageContent;
     CGFloat _itemHeight;
     HomePageTitle *_titleView;
@@ -65,7 +65,7 @@
 
 - (void)configView{
     [super configView];
-
+    self.contentView.backgroundColor = [UIColor colorWithHexString:@"#2e313c"];
     MJWeakSelf;
     //美剧内容控制器
     HomePageEpisode *episodeVC = [[HomePageEpisode alloc] init];
@@ -85,6 +85,15 @@
     };
     
     [self addChildViewController:recommendVC];
+    
+    //频道控制器
+    HomePageChannel *channelVC = [[HomePageChannel alloc] init];
+    channelVC.letNaviBarHidden = ^(BOOL isHidden){
+        [weakSelf showOrHideNavibar:isHidden];
+    };
+    [self addChildViewController:channelVC];
+    
+    //保存自控制器的数组
     _homePageContent = self.childViewControllers;
     
     //添加title
@@ -103,9 +112,20 @@
     model3.titleString = @"频道";
     model3.selectPercent = 0;
     
+    titleView.selectItem = ^(NSIndexPath *indexPath, UICollectionView *selectView){
+        //对HomePageTitle处理
+        for (HomePageTitleCellModel *model in _homePageTitle) {
+            model.selectPercent = 0;
+        }
+        _homePageTitle[indexPath.row].selectPercent = 1;
+        [_titleView setLineFrame:indexPath.row];
+        [selectView reloadData];
+        [weakSelf.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    };
+    
     _homePageTitle = @[model1, model2, model3];
     [self.view addSubview:(_titleView = titleView)];
-     _titleView.height = [_titleView getmtBaseHeight];
+    _titleView.height = [_titleView getmtBaseHeight];
     _titleView.collectionViewSource = _homePageTitle;
     
     self.collectionView.pagingEnabled = YES;
@@ -125,6 +145,9 @@
 }
 
 - (void)scrollViewMove:(CGPoint)contentOffset view:(UICollectionView *)scrollView{
+    if (!scrollView.isDragging) {
+        return;
+    }
     CGFloat offsetX = contentOffset.x;
     if (offsetX>self.collectionView.contentSize.width-YYScreenSize().width) {
         offsetX = self.collectionView.contentSize.width-YYScreenSize().width;

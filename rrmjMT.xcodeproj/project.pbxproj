@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1D1B5F2CB633C1D71A108777 /* libPods-rrmjMT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F60CA3A6E75E0B53929CAF6 /* libPods-rrmjMT.a */; };
 		691D27F41DFA5CCD00329126 /* httpHold.gif in Resources */ = {isa = PBXBuildFile; fileRef = 691D27F31DFA5CCD00329126 /* httpHold.gif */; };
+		69237BC01E10B69500D78FE1 /* HomePageChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69237BBF1E10B69500D78FE1 /* HomePageChannel.m */; };
+		69237BC31E10B87600D78FE1 /* ChannelCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69237BC21E10B87600D78FE1 /* ChannelCollectionCell.m */; };
+		69237BC51E10B8A200D78FE1 /* ChannelCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69237BC41E10B8A200D78FE1 /* ChannelCollectionCell.xib */; };
 		692C974F1E0A26BC001D2C1C /* MTPageControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 692C974E1E0A26BC001D2C1C /* MTPageControlView.m */; };
 		692F67E81DFBA6BA006D3428 /* HomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F67E31DFBA6BA006D3428 /* HomePageVC.m */; };
 		692F67FD1DFBDA6C006D3428 /* HomePageEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F67FB1DFBDA6C006D3428 /* HomePageEpisode.m */; };
@@ -131,6 +134,11 @@
 /* Begin PBXFileReference section */
 		3F60CA3A6E75E0B53929CAF6 /* libPods-rrmjMT.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rrmjMT.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		691D27F31DFA5CCD00329126 /* httpHold.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = httpHold.gif; sourceTree = "<group>"; };
+		69237BBE1E10B69500D78FE1 /* HomePageChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageChannel.h; sourceTree = "<group>"; };
+		69237BBF1E10B69500D78FE1 /* HomePageChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageChannel.m; sourceTree = "<group>"; };
+		69237BC11E10B87600D78FE1 /* ChannelCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionCell.h; sourceTree = "<group>"; };
+		69237BC21E10B87600D78FE1 /* ChannelCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionCell.m; sourceTree = "<group>"; };
+		69237BC41E10B8A200D78FE1 /* ChannelCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCollectionCell.xib; sourceTree = "<group>"; };
 		692C974D1E0A26BC001D2C1C /* MTPageControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPageControlView.h; sourceTree = "<group>"; };
 		692C974E1E0A26BC001D2C1C /* MTPageControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPageControlView.m; sourceTree = "<group>"; };
 		692F67E21DFBA6BA006D3428 /* HomePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageVC.h; sourceTree = "<group>"; };
@@ -422,6 +430,8 @@
 				692F67FB1DFBDA6C006D3428 /* HomePageEpisode.m */,
 				69328B031E0B5C6E00D2E627 /* HomePageRecommend.h */,
 				69328B041E0B5C6E00D2E627 /* HomePageRecommend.m */,
+				69237BBE1E10B69500D78FE1 /* HomePageChannel.h */,
+				69237BBF1E10B69500D78FE1 /* HomePageChannel.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -501,6 +511,9 @@
 		694254391E0E016600896412 /* 首页频道 */ = {
 			isa = PBXGroup;
 			children = (
+				69237BC11E10B87600D78FE1 /* ChannelCollectionCell.h */,
+				69237BC21E10B87600D78FE1 /* ChannelCollectionCell.m */,
+				69237BC41E10B8A200D78FE1 /* ChannelCollectionCell.xib */,
 			);
 			path = "首页频道";
 			sourceTree = "<group>";
@@ -1254,6 +1267,7 @@
 				694254451E0E019E00896412 /* HomePageTitleCell.xib in Resources */,
 				6942544A1E0E028000896412 /* HomePageEpisodeCell.xib in Resources */,
 				6942548C1E0E208300896412 /* AllCommunityView.xib in Resources */,
+				69237BC51E10B8A200D78FE1 /* ChannelCollectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,6 +1337,7 @@
 				694254551E0E02F100896412 /* HomePageTableHeadViewLayout.m in Sources */,
 				69732D771DF95D7C00326489 /* NSString+isExist.m in Sources */,
 				69732D831DF95D7C00326489 /* UIView+CornerRadius.m in Sources */,
+				69237BC01E10B69500D78FE1 /* HomePageChannel.m in Sources */,
 				69732D9B1DF95D7C00326489 /* ZLPhotoPickerViewController.m in Sources */,
 				694254771E0E1F0C00896412 /* HomePageTitleCellModel.m in Sources */,
 				694254491E0E028000896412 /* HomePageEpisodeCell.m in Sources */,
@@ -1404,6 +1419,7 @@
 				69732D781DF95D7C00326489 /* UIButton+Custom.m in Sources */,
 				69328B331E0BBCE400D2E627 /* HomePageRecommendCellModel.m in Sources */,
 				69732D631DF95D7C00326489 /* AnimateManager.m in Sources */,
+				69237BC31E10B87600D78FE1 /* ChannelCollectionCell.m in Sources */,
 				69732D931DF95D7C00326489 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
 				69732D8F1DF95D7C00326489 /* ZLPhotoPickerBrowserViewController.m in Sources */,
 				69732D711DF95D7C00326489 /* NSArray+Convience.m in Sources */,

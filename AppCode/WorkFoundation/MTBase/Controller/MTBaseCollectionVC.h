@@ -41,6 +41,11 @@
 @property (nonatomic, assign) CGFloat numInaLine;
 
 /**
+    cell的宽度【优先级高于numInaLine，默认为0】
+ **/
+@property (nonatomic, assign) CGFloat outsideItemWidth;
+
+/**
     cellItem的高度[默认50]
  **/
 @property (nonatomic, assign) CGFloat itemHeight;

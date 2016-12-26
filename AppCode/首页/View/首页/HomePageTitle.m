@@ -47,15 +47,25 @@
     _underLine.layer.cornerRadius = 3.f;
 }
 
+- (void)setLineFrame:(CGFloat)originX{
+    @weakify(self);
+    [UIView animateWithDuration:0.25 animations:^{
+        @strongify(self);
+        self.underLine.x = originX*self.underLine.width;
+    }];
+}
+
 - (void)updateUnderLineFrame:(CGPoint)cotentOffset{
     _underLine.x = cotentOffset.x/YYScreenSize().width*_lineWidth;
     NSInteger leftIndex = floorf((cotentOffset.x/YYScreenSize().width));
+    NSLog(@"%ld", (long)leftIndex);
     if (leftIndex < self.collectionViewSource.count-1) {
         HomePageTitleCellModel *leftModel = self.collectionViewSource[leftIndex];
         HomePageTitleCellModel *rightModel = self.collectionViewSource[leftIndex+1];;
         CGFloat leftOffset = leftIndex * YYScreenSize().width;
         leftModel.selectPercent = 1 - (cotentOffset.x - leftOffset)/YYScreenSize().width;
         rightModel.selectPercent = 1 - leftModel.selectPercent;
+        NSLog(@"selectPercent : %f",leftModel.selectPercent);
         NSIndexPath *leftIndexPath = [NSIndexPath indexPathForItem:leftIndex inSection:0];
         NSIndexPath *rightIndexPath = [NSIndexPath indexPathForItem:leftIndex+1 inSection:0];
         [self.collectionView reloadItemsAtIndexPaths:@[leftIndexPath,rightIndexPath]];
