@@ -25,6 +25,8 @@
     self.isScrollDirectionHorizon = NO;
     self.outsideItemWidth = YYScreenSize().width / 3;
     self.itemHeight = self.outsideItemWidth*0.8 + 5 + 20 + 5;
+    self.collectionViewMarginArray = @[@(10),@(0),@(10),@(0)];
+    self.verticalSpace = 5.f;
 //    NSLog(@"[%f] [%f]", self.outsideItemWidth, self.itemHeight);
 }
 
